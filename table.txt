@@ -1,0 +1,16 @@
+JALANIN INI DULU untuk buat username admin pass admin
+$ sudo mysql -u root
+
+mysql> USE mysql;
+mysql> CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost';
+mysql> FLUSH PRIVILEGES;
+mysql> exit;
+
+INI untuk buat database nya di lokal
+sementara baru 3 tabel
+
+CREATE DATABASE e_vent;
+CREATE TABLE member( member_id INT NOT NULL AUTO_INCREMENT , nama VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, tgl_lahir DATE NOT NULL, password VARCHAR (16) NOT NULL, PRIMARY KEY (member_id));
+CREATE TABLE penyelenggara( penyelenggara_id INT NOT NULL AUTO_INCREMENT , nama VARCHAR (255) NOT NULL, email varchar (255) NOT NULL, no_telp varchar(20) NOT NULL, password VARCHAR(16) NOT NULL, deskripsi varchar(255) NOT NULL, PRIMARY KEY (penyelenggara_id));
+create table event( event_id INT NOT NULL AUTO_INCREMENT , namaEvent VARCHAR (255) NOT NULL, deskripsi VARCHAR (255) NOT NULL, tanggal DATE NOT NULL, biaya INT NOT NULL, PRIMARY KEY(event_id));
