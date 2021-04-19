@@ -23,21 +23,17 @@ mydb = mysql.connector.connect(
 
 class Ui_EventWindow(QMainWindow):
     widget = []
+    member_id = 0
 
-    def __init__(self, widget, parent=None):
+    def __init__(self, widget, member_id, parent=None):
         super().__init__()
         self.widget = widget
         self.widget.addWidget(self)
+        self.member_id = member_id
         # self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
         loadUi("pageEvent.ui", self)
         self.setupUi(self)
-        # self.HotEvent1.clicked.connect(self.test)
-        # # self.centralwidget.clicked.connect(self.test)
-        # print(self.HotEvent1.metaObject().className())
-        # # for event in self.Q:
-        # #     if event.metaObject().className() == "QPushButton":
-        # #         print("HEHE")
-        # print(self.QtWidgets.QPushButton.count())
+        print("ID Member: " , self.member_id)
         
     def test(self):
         print("KEPENCET")

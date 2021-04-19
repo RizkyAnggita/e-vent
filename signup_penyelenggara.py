@@ -131,7 +131,7 @@ class Ui_SignupPenyelenggara(QDialog):
         self.cur.execute(
             """SELECT email FROM penyelenggara WHERE email='%s'"""%(email,)
         )
-        result = cur.fetchone()
+        result = self.cur.fetchone()
         
         if (result==None):
             sql = "INSERT INTO penyelenggara VALUES (NULL, %s, %s, %s, %s, %s)"
@@ -144,7 +144,7 @@ class Ui_SignupPenyelenggara(QDialog):
             msg.setText("Email sudah terdaftar! ")
             msg.setInformativeText("Silahkan gunakan email lain")
         
-        msq.exec_()
+        msg.exec_()
 
     def back(self):
         self.widget.removeWidget(self)
