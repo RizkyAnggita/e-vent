@@ -2,6 +2,7 @@ import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QMessageBox
 from PyQt5.uic import loadUi
+from pageEvent import Ui_EventWindow
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -55,6 +56,11 @@ class LoginWindow(QDialog):
             self.email_txtbox.clear()
             self.password_txtbox.clear()
         msg.exec_()
+        # conn.close()
+        ui = Ui_EventWindow()
+        widget.addWidget(ui)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
+        
 
     def back(self):
         widget.removeWidget(self)
@@ -147,8 +153,8 @@ mainWindow = MainWindow()
 
 widget = QtWidgets.QStackedWidget()
 widget.addWidget(mainWindow)
-widget.setFixedWidth(800)
-widget.setFixedHeight(600)
+widget.setFixedWidth(1000)
+widget.setFixedHeight(800)
 widget.show()
 
 sys.exit(app.exec_())
