@@ -11,6 +11,7 @@ from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow, QMessageBox
 from PyQt5.uic import loadUi
 from PyQt5 import QtCore, QtGui, QtWidgets
 from pageEvent import Ui_EventWindow
+from add_event import Ui_AddEvent
 # import mysql.connector
 
 # mydb = mysql.connector.connect(
@@ -98,30 +99,53 @@ class Ui_LoginWindow(QDialog):
         self.back_btn.setText(_translate("Dialog", "Back"))
 
     def loginfunction(self):
-        
+        member = False
+        penyelenggara = False
+        member_id = 0
+        penyelenggara_id = 0
         email = self.email_txtbox.text()
         password = self.password_txtbox.text()
         self.cur.execute(
-            """SELECT email, password FROM member WHERE email='%s' AND password='%s'"""%(email, password,)
+            """SELECT email, password, member_id FROM member WHERE email='%s' AND password='%s'"""%(email, password,)
         )
         result = self.cur.fetchone()
 
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
         if(result!=None):
+            member = True
+            penyelenggara = False
+            member_id = result[2]
             msg.setText("Login berhasil! ")
             msg.setInformativeText("Selamat Datang!")
             # GO TO Page Event and set current_logged_in
         else:
-            msg.setText("Login gagal !")
-            msg.setInformativeText("Silahkan cek kembali email dan password Anda")
-            self.email_txtbox.clear()
-            self.password_txtbox.clear()
+            self.cur.execute(
+                """SELECT email, password, penyelenggara_id FROM penyelenggara WHERE email='%s' AND password='%s'"""%(email, password,)
+            )
+            resultPenyelenggara = self.cur.fetchone()
+            if (resultPenyelenggara != None):
+                penyelenggara = True
+                member = False
+                penyelenggara_id = resultPenyelenggara[2]
+                msg.setText("Login berhasil! ")
+                msg.setInformativeText("Selamat Datang!")
+            else:
+
+                msg.setText("Login gagal !")
+                msg.setInformativeText("Silahkan cek kembali email dan password Anda")
+                self.email_txtbox.clear()
+                self.password_txtbox.clear()
         msg.exec_()
         # conn.close()
-        ui = Ui_EventWindow(self.widget)
-        self.widget.addWidget(ui)
-        self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
+        if (member):
+            ui = Ui_EventWindow(self.widget, member_id)
+            self.widget.addWidget(ui)
+            self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
+        else:
+            ui = Ui_AddEvent(self.widget, penyelenggara_id)
+            self.widget.addWidget(ui)
+            self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
         
 
     def back(self):
