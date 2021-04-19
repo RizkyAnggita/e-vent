@@ -18,12 +18,13 @@ class Ui_DetailEventWindow(QMainWindow):
     idEvent = 0
     # cur = []    
     # conn = []
-    def __init__(self, widget, idEvent):
+    def __init__(self, widget, idEvent, member_id):
         super(Ui_DetailEventWindow, self).__init__()
         loadUi("showDetailEvent.ui", self)
         self.widget = widget
         self.widget.addWidget(self)
         self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
+        self.member_id = member_id
 
         self.idEvent = idEvent
         self.setupDatabase()
@@ -166,8 +167,70 @@ class Ui_DetailEventWindow(QMainWindow):
         self.biayaLabel.setText(str(result[4]))
 
     def daftarButtonClick(self):
-        quit()
-    
+        # warn
+        ques = QMessageBox()
+        ques.setWindowTitle("Message")
+        ques.setIcon(QMessageBox.Question)
+        ques.setText("Apakah anda yakin ingin mendaftar event ini?")
+        ques.setStandardButtons(QMessageBox.Yes|QMessageBox.No)
+        ques.setDefaultButton(QMessageBox.Yes)
+        ques.buttonClicked.connect(self.pop_up_button_daftar)
+        ques.exec_()
+
+
+        # jika berbayar ke page bayar dulu
+    def pop_up_button_daftar(self, i):
+        if i.text() == "&No" :
+            # do nothing
+            pass
+            
+        if i.text() == "&Yes":
+            if int(self.biayaLabel.text()) == 0:
+                try:
+                    sql = "INSERT INTO member_event VALUES (%s, %s)"
+                    self.mycursor.execute(sql, (self.member_id, self.idEvent))
+                    self.mydb.commit()
+                except:
+                    error = QMessageBox()
+                    error.setText("Pendaftara gagal")
+                    error.setIcon(QMessageBox.Critical)
+                    pass
+
+                message = QMessageBox()
+                message.setWindowTitle("Message")
+                message.setText("Pendaftaran berhasil")
+                message.exec_()
+            else: # biaya tidak gratis
+                ### MASIH BELUM DIIMPLEMENTASIKAN DB NYA ###
+                # sql = "SELECT penyelenggara_id FROM event where event_id=%{}".format(self.idEvent)
+                # self.mycursor.execute(sql)
+                # id_penyelenggara = self.mycursor.fetchone()
+                # sql = "SELECT * FROM penyelenggara WHERE penyelenggara_id= {}".format(id_penyelenggara)
+                # self.mycursor.execute(sql)
+                penyelenggara = self.mycursor.fetchone()
+                ##########################################
+
+                bayar = QMessageBox()
+                bayar.setWindowTitle("Pembayaran")
+                bayar.setText("Event memerlukan biaya pendaftaran")
+                infodetail = "Nama Penyelenggara \t: {}\nInfo Rekening \t : {}".format("aaa", "bbb")
+                bayar.setInformativeText("Silahkan membayar biaya pendaftaran dan mengonfirmasikannya ke penyelenggara event pada detail dibawah")
+                bayar.setDetailedText(infodetail)
+                bayar.exec_()
+                try:
+                    sql = "INSERT INTO member_event VALUES (%s, %s)"
+                    self.mycursor.execute(sql, (self.member_id, self.idEvent))
+                    self.mydb.commit()
+                except:
+                    error = QMessageBox()
+                    error.setText("Pendaftara gagal")
+                    error.setIcon(QMessageBox.Critical)
+                    pass
+                message = QMessageBox()
+                message.setWindowTitle("Message")
+                message.setText("Pendaftaran berhasil")
+                message.exec_()
+
     def back(self):
         self.widget.removeWidget(self)
         # self.widget.setCurrentIndex(self.widget.currentIndex()-1)

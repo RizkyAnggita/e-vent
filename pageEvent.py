@@ -264,7 +264,7 @@ class Ui_EventWindow(QMainWindow):
 
     
     def gotoDetail(self, id):
-        showDetailEvent = Ui_DetailEventWindow(self.widget, id)
+        showDetailEvent = Ui_DetailEventWindow(self.widget, id, self.member_id)
         self.widget.addWidget(showDetailEvent)
         self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
 
