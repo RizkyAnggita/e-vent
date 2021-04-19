@@ -9,7 +9,14 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import mysql.connector
 
+mydb = mysql.connector.connect(
+    host = "localhost",
+    user = "admin",
+    passwd = "admin",
+    database = "e_vent"
+)
 
 class Ui_EventWindow(object):
     def setupUi(self, EventWindow):
@@ -190,22 +197,52 @@ class Ui_EventWindow(object):
         EventWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(EventWindow)
+        self.retranslateNewEvent(EventWindow)
+        self.retranslateNearestEvent(EventWindow)
+        self.pushButton.clicked.connect(self.search)
         QtCore.QMetaObject.connectSlotsByName(EventWindow)
 
     def retranslateUi(self, EventWindow):
         _translate = QtCore.QCoreApplication.translate
         EventWindow.setWindowTitle(_translate("EventWindow", "MainWindow"))
         self.label_6.setText(_translate("EventWindow", "E-Vent"))
-        self.HotEventName1.setText(_translate("EventWindow", "HotEvent1"))
-        self.HotEventName2.setText(_translate("EventWindow", "HotEvent2"))
-        self.HotEventName3.setText(_translate("EventWindow", "HotEvent3"))
-        self.HotEventName4.setText(_translate("EventWindow", "HotEvent4"))
         self.label_5.setText(_translate("EventWindow", "Hot Event"))
         self.label_7.setText(_translate("EventWindow", "New Event"))
-        self.NewEventName1.setText(_translate("EventWindow", "NewEvent1"))
-        self.label_9.setText(_translate("EventWindow", "NewEvent2"))
-        self.label_10.setText(_translate("EventWindow", "NewEvent3"))
-        self.label_11.setText(_translate("EventWindow", "NewEvent4"))
+
+    def retranslateNewEvent(self,EventWindow) :
+        mycursor = mydb.cursor()
+        sql = 'SELECT namaEvent FROM event ORDER BY event_id DESC;'
+        mycursor.execute(sql)
+        result = mycursor.fetchall()
+        _translate = QtCore.QCoreApplication.translate
+        self.NewEventName1.setText(_translate("EventWindow", result[0][0]))
+        self.label_9.setText(_translate("EventWindow", result[1][0]))
+        self.label_10.setText(_translate("EventWindow", result[2][0]))
+        self.label_11.setText(_translate("EventWindow", result[3][0]))
+
+    def retranslateNearestEvent(self, EventWindow) :
+        mycursor = mydb.cursor()
+        sql = "SELECT namaEvent FROM event ORDER BY ABS(DATEDIFF(tanggal, NOW()));"
+        mycursor.execute(sql)
+        result = mycursor.fetchall()
+        _translate = QtCore.QCoreApplication.translate
+        self.HotEventName1.setText(_translate("EventWindow", result[0][0]))
+        self.HotEventName2.setText(_translate("EventWindow", result[1][0]))
+        self.HotEventName3.setText(_translate("EventWindow", result[2][0]))
+        self.HotEventName4.setText(_translate("EventWindow", result[3][0]))
+
+    def search(self) :
+        name = self.SearchBar.text()
+        mycursor = mydb.cursor()
+        sql = "SELECT namaEvent FROM event"
+        mycursor.execute(sql)
+        result = mycursor.fetchall()
+        for x in result :
+            low = x[0].lower()
+            arr = low.split()
+            if (name.lower() in arr) : 
+                print(x[0])
+
 
 
 if __name__ == "__main__":
