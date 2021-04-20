@@ -125,7 +125,7 @@ class Ui_AddEvent(QMainWindow):
 
     def checkStringLength(self, caller:QtWidgets.QPlainTextEdit, label:QtWidgets.QLabel, context: str):
         # textLength = caller.toPlainText().__len__()
-        lengthCode = checkStringLength(caller.toPlainText().__len__(), 256)
+        lengthCode = checkStringLength(caller.toPlainText(), 256)
         if lengthCode == 2:
             label.setText(context + " terlalu panjang")
             return False
