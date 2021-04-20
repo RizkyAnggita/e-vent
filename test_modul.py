@@ -2,6 +2,8 @@
 print("TEST")
 
 from login import loginFunction
+from signup_member import signupMember
+from signup_penyelenggara import signupPenyelenggara
 
 import mysql.connector as database
 conn = database.connect(
@@ -45,4 +47,21 @@ def test_login_gagal():
     assert member_id == -1
     assert penyelenggara_id == -1
 
-   
+def test_signupMember():
+    data_lengkap, sukses = signupMember("Rizky", "rizky@rizky.com", "2001-11-29", "rizky", cur, conn)
+    assert data_lengkap == True
+    assert sukses == False
+
+    data_lengkap, sukses = signupMember("", "rizky@rizky.com", "2001-11-29", "rizky", cur, conn)
+    assert data_lengkap == False
+    assert sukses == False
+
+def test_signupPenyelenggara():
+    data_lengkap, sukses = signupPenyelenggara("joni", "joni@joni.id", "082211223344",  "joni", "joni", cur, conn)
+    assert data_lengkap == True
+    assert sukses == False #data sudah ada, signup gagal
+
+    data_lengkap, sukses = signupPenyelenggara("", "joni@joni.id", "082211223344",  "joni", "joni", cur, conn)
+    assert data_lengkap == False
+    assert sukses == False
+
