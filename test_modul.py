@@ -67,7 +67,9 @@ def test_signupPenyelenggara():
     assert sukses == False
 
 def test_search():
-    arr = [("Test1",), ("Test2",), ("Test3",), ("Test4 Ha",)]
-    found, res = searchEvent(arr,"Test4")
+    sql = "SELECT namaEvent FROM event"
+    cur.execute(sql)
+    result = cur.fetchall()
+    found, res = searchEvent(result,"test1")
     assert found == True
 
