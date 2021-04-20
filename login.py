@@ -12,14 +12,6 @@ from PyQt5.uic import loadUi
 from PyQt5 import QtCore, QtGui, QtWidgets
 from pageEvent import Ui_EventWindow
 from add_event import Ui_AddEvent
-# import mysql.connector
-
-# mydb = mysql.connector.connect(
-#     host = "localhost",
-#     user = "admin",
-#     passwd = "admin",
-#     database = "e_vent"
-# )
 
 class Ui_LoginWindow(QDialog):
     
@@ -149,7 +141,7 @@ def loginFunction(email, password, cur):
         penyelenggara = False
         member_id = result[2]
     else:
-        self.cur.execute(
+        cur.execute(
             """SELECT email, password, penyelenggara_id FROM penyelenggara WHERE email='%s' AND password='%s'"""%(email, password,)
         )
         resultPenyelenggara = cur.fetchone()
@@ -160,7 +152,7 @@ def loginFunction(email, password, cur):
 
         else:
             pass
-        
+
     return member, penyelenggara, member_id, penyelenggara_id
 
 # if __name__ == "__main__":
