@@ -4,6 +4,7 @@ print("TEST")
 from login import loginFunction
 from signup_member import signupMember
 from signup_penyelenggara import signupPenyelenggara
+from pageEvent import searchEvent
 
 import mysql.connector as database
 conn = database.connect(
@@ -64,4 +65,9 @@ def test_signupPenyelenggara():
     data_lengkap, sukses = signupPenyelenggara("", "joni@joni.id", "082211223344",  "joni", "joni", cur, conn)
     assert data_lengkap == False
     assert sukses == False
+
+def test_search():
+    arr = [("Test1",), ("Test2",), ("Test3",), ("Test4 Ha",)]
+    found, res = searchEvent(arr,"Test4")
+    assert found == True
 
