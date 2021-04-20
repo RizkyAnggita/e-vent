@@ -6,6 +6,8 @@ from signup_member import signupMember
 from signup_penyelenggara import signupPenyelenggara
 from pageEvent import searchEvent
 from add_event import checkDataEvent
+from showDetailEvent import showDetail
+from showDetailEvent import cekKeterdaftaran
 
 from PyQt5.QtCore import QDate
 import mysql.connector as database
@@ -135,3 +137,19 @@ def test_data_event_valid():
     assert namaStatus == 1
     assert deskripsiStatus == 1
     assert tanggalStatus == True
+
+def test_show_detail():
+    event_id = 1
+    id, nm, des, tgl, biy, peny = showDetail(event_id, cur) ## Terganung databasenya, mungkin beda
+    assert id== 1
+
+def test_show_detail_notfound():
+    event_id = -1
+    result = showDetail(event_id,cur)   ## Terganung databasenya, mungkin beda
+    assert result == None
+
+def test_cekKeterdaftaran():
+    event_id = 2
+    member_id = 2
+    result = cekKeterdaftaran(event_id, member_id, cur) ## Terganung databasenya, mungkin beda
+    print(result)
