@@ -106,29 +106,24 @@ class Ui_SignupMember(QDialog):
         tgl_lahir = self.tanggal_lahir.date().toString("yyyy-MM-dd")
         password = self.password_txtbox.text()
         print(tgl_lahir)
-        self.cur.execute(
-            """SELECT email FROM member WHERE email='%s'"""%(email,)
-        )
-        result = self.cur.fetchone()
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
 
-        if (nama=="" or email=="" or password==""):
+        data_lengkap, sukses = signupMember(nama, email, tgl_lahir, password, self.cur, self.conn)
+
+        if (not data_lengkap):
             msg.setText("Masih ada data yang belum diisi !")
             msg.setInformativeText("Silahkan isi data secara lengkap ")
             msg.exec_()
-            return 
-
-        if (result==None):
-            sql = "INSERT INTO member VALUES (NULL, %s, %s, %s, %s)"
-            val = (nama, email, tgl_lahir, password)
-            self.cur.execute(sql, val)
-            self.conn.commit()
+            return
+        
+        if (sukses):
             msg.setText("Signup sukses!")
-            msg.setInformativeText("Selamat bergabung"+nama+"!")
+            msg.setInformativeText("Selamat bergabung "+nama+"!")
         else:
             msg.setText("Email sudah terdaftar! ")
             msg.setInformativeText("Silahkan gunakan email lain")
+        
         msg.exec_()
 
     def back(self):
@@ -136,8 +131,30 @@ class Ui_SignupMember(QDialog):
         self.widget.setCurrentIndex(self.widget.currentIndex()-1)
     
 
-        
+def signupMember(nama, email, tgl_lahir, password, cur, conn):
+    data_lengkap = False
+    sukses = False
 
+    if (nama=="" or email=="" or password==""):
+        return data_lengkap, sukses
+
+    # Data Lengkap
+    data_lengkap = True
+
+    cur.execute(
+        """SELECT email FROM member WHERE email='%s'"""%(email,)
+    )
+    result = cur.fetchone()    
+    
+    if (result==None):
+        sql = "INSERT INTO member VALUES (NULL, %s, %s, %s, %s)"
+        val = (nama, email, tgl_lahir, password)
+        cur.execute(sql, val)
+        conn.commit()
+        sukses = True
+
+    return data_lengkap, sukses
+    
 
 
 # if __name__ == "__main__":

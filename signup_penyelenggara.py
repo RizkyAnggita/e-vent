@@ -123,24 +123,19 @@ class Ui_SignupPenyelenggara(QDialog):
         print("HEHE")
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
-        if (nama=="") or (email=="") or (no_telp=="") or (password=="") or (deskripsi==""):
+
+        data_lengkap, sukses = signupPenyelenggara(nama, email, no_telp, password, deskripsi, self.cur, self.conn)
+
+        if not data_lengkap:
             msg.setText("Masih ada data yang belum diisi !")
             msg.setInformativeText("Silahkan isi data secara lengkap ")
             msg.exec_()
-            return 
-
-        self.cur.execute(
-            """SELECT email FROM penyelenggara WHERE email='%s'"""%(email,)
-        )
-        result = self.cur.fetchone()
+            return
         
-        if (result==None):
-            sql = "INSERT INTO penyelenggara VALUES (NULL, %s, %s, %s, %s, %s)"
-            val = (nama, email, no_telp, password, deskripsi)
-            self.cur.execute(sql, val)
-            self.conn.commit()
+        # Data Lengkap
+        if (sukses):
             msg.setText("Signup sukses!")
-            msg.setInformativeText("Selamat bergabung"+nama+"!")
+            msg.setInformativeText("Selamat bergabung "+nama+"!")
         else:
             msg.setText("Email sudah terdaftar! ")
             msg.setInformativeText("Silahkan gunakan email lain")
@@ -152,3 +147,27 @@ class Ui_SignupPenyelenggara(QDialog):
         self.widget.setCurrentIndex(self.widget.currentIndex()-1)
 
     
+def signupPenyelenggara(nama, email, no_telp, password, deskripsi, cur, conn):
+    data_lengkap = False
+    sukses = False
+
+    if (nama=="") or (email=="") or (no_telp=="") or (password=="") or (deskripsi==""):
+        return data_lengkap, sukses
+   
+    # Data Lengkap
+    data_lengkap = True
+    
+    cur.execute(
+        """SELECT email FROM penyelenggara WHERE email='%s'"""%(email,)
+    )
+
+    result = cur.fetchone()
+
+    if (result==None):
+        sql = "INSERT INTO penyelenggara VALUES (NULL, %s, %s, %s, %s, %s)"
+        val = (nama, email, no_telp, password, deskripsi)
+        cur.execute(sql, val)
+        conn.commit()
+        sukses = True
+
+    return data_lengkap, sukses
