@@ -1,4 +1,4 @@
--- MariaDB dump 10.19  Distrib 10.5.9-MariaDB, for osx10.14 (x86_64)
+-- MariaDB dump 10.18  Distrib 10.5.8-MariaDB, for Win64 (AMD64)
 --
 -- Host: localhost    Database: e_vent
 -- ------------------------------------------------------
@@ -19,7 +19,7 @@
 -- Current Database: `e_vent`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `e_vent` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `e_vent` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `e_vent`;
 
@@ -36,8 +36,11 @@ CREATE TABLE `event` (
   `deskripsi` varchar(255) NOT NULL,
   `tanggal` date NOT NULL,
   `biaya` int(11) NOT NULL,
-  PRIMARY KEY (`event_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `penyelenggara_id` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`event_id`),
+  KEY `fk_penyelenggara_id` (`penyelenggara_id`),
+  CONSTRAINT `fk_penyelenggara_id` FOREIGN KEY (`penyelenggara_id`) REFERENCES `penyelenggara` (`penyelenggara_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,6 +49,7 @@ CREATE TABLE `event` (
 
 LOCK TABLES `event` WRITE;
 /*!40000 ALTER TABLE `event` DISABLE KEYS */;
+INSERT INTO `event` (`event_id`, `namaEvent`, `deskripsi`, `tanggal`, `biaya`, `penyelenggara_id`) VALUES (1,'a','test event','2021-07-15',0,1),(2,'astaga','astaga','2021-06-01',0,1),(3,'Test1','Test1','2021-03-19',50000,1),(4,'Test1','Test1','2021-03-19',50000,1);
 /*!40000 ALTER TABLE `event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +67,7 @@ CREATE TABLE `member` (
   `tgl_lahir` date NOT NULL,
   `password` varchar(16) NOT NULL,
   PRIMARY KEY (`member_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,8 +76,35 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` (`member_id`, `nama`, `email`, `tgl_lahir`, `password`) VALUES (1,'Rizky A','13519132@std.stei.itb.ac.id','1998-02-02','admin'),(2,'Rehagana S.','13519117@std.stei.itb.ac.id','1999-03-03','admin2'),(3,'Test dari App','test@test.com','2001-11-21','test');
+INSERT INTO `member` (`member_id`, `nama`, `email`, `tgl_lahir`, `password`) VALUES (1,'A','a@mail.com','2000-07-12','a'),(2,'test','test','1970-07-23','test');
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `member_event`
+--
+
+DROP TABLE IF EXISTS `member_event`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `member_event` (
+  `member_id` int(11) NOT NULL,
+  `event_id` int(11) NOT NULL,
+  PRIMARY KEY (`member_id`,`event_id`),
+  KEY `event_id` (`event_id`),
+  CONSTRAINT `member_event_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`),
+  CONSTRAINT `member_event_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `event` (`event_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `member_event`
+--
+
+LOCK TABLES `member_event` WRITE;
+/*!40000 ALTER TABLE `member_event` DISABLE KEYS */;
+INSERT INTO `member_event` (`member_id`, `event_id`) VALUES (2,1),(2,3);
+/*!40000 ALTER TABLE `member_event` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -91,7 +122,7 @@ CREATE TABLE `penyelenggara` (
   `password` varchar(16) NOT NULL,
   `deskripsi` varchar(255) NOT NULL,
   PRIMARY KEY (`penyelenggara_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +131,7 @@ CREATE TABLE `penyelenggara` (
 
 LOCK TABLES `penyelenggara` WRITE;
 /*!40000 ALTER TABLE `penyelenggara` DISABLE KEYS */;
-INSERT INTO `penyelenggara` (`penyelenggara_id`, `nama`, `email`, `no_telp`, `password`, `deskripsi`) VALUES (1,'Test','test@test.com','082234560987','test','Ini deskripsi sebuah penyelenggara');
+INSERT INTO `penyelenggara` (`penyelenggara_id`, `nama`, `email`, `no_telp`, `password`, `deskripsi`) VALUES (1,'test','test','0000','test','test');
 /*!40000 ALTER TABLE `penyelenggara` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -113,4 +144,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-12 22:52:52
+-- Dump completed on 2021-04-20 20:49:13
