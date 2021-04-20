@@ -46,11 +46,11 @@ class Ui_DetailEventWindow(QMainWindow):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.deskripsiEventLabel = QtWidgets.QLabel(self.verticalLayoutWidget)
-        self.deskripsiEventLabel.setStyleSheet("border: 3px solid black;")
-        self.deskripsiEventLabel.setText("")
-        self.deskripsiEventLabel.setObjectName("deskripsiEventLabel")
-        self.verticalLayout.addWidget(self.deskripsiEventLabel)
+        self.textDeskripsiEvent = QtWidgets.QTextEdit(self.verticalLayoutWidget)
+        self.textDeskripsiEvent.setReadOnly(True)
+        self.textDeskripsiEvent.setObjectName("textDeskripsiEvent")
+        self.verticalLayout.addWidget(self.textDeskripsiEvent)
+
         self.verticalLayoutWidget_2 = QtWidgets.QWidget(self.centralwidget)
         self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(30, 70, 611, 89))
         self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
@@ -149,7 +149,7 @@ class Ui_DetailEventWindow(QMainWindow):
         print(result[1])
 
         self.namaEventLabel.setText(str(result[1]))
-        self.deskripsiEventLabel.setText(str(result[2]))
+        self.textDeskripsiEvent.setText(str(result[2]))
         self.dateLabel.setText(str(result[3]))
         self.biayaLabel.setText(str(result[4]))
 
