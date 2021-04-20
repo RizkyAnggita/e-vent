@@ -12,6 +12,7 @@ from PyQt5.uic import loadUi
 from PyQt5 import QtCore, QtGui, QtWidgets
 import mysql.connector as connector
 
+####################################### G U I ##############################################
 class Ui_DetailEventWindow(QMainWindow):
 
     widget = []
@@ -79,10 +80,10 @@ class Ui_DetailEventWindow(QMainWindow):
         self.backButton.setObjectName("backButton")
         self.backButton.clicked.connect(self.back)
         
-        self.testButton = QtWidgets.QPushButton(self.centralwidget)
-        self.testButton.setGeometry(QtCore.QRect(660, 10, 93, 28))
-        self.testButton.setObjectName("testButton")
-        self.testButton.clicked.connect(self.testButtonClick)
+        # self.testButton = QtWidgets.QPushButton(self.centralwidget)
+        # self.testButton.setGeometry(QtCore.QRect(660, 10, 93, 28))
+        # self.testButton.setObjectName("testButton")
+        # self.testButton.clicked.connect(self.testButtonClick)
 
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(30, 460, 361, 41))
@@ -152,22 +153,33 @@ class Ui_DetailEventWindow(QMainWindow):
         self.dateLabel.setText(str(result[3]))
         self.biayaLabel.setText(str(result[4]))
 
-    def testButtonClick(self):
+    # def testButtonClick(self):
 
-        self.mycursor.execute(
-            """SELECT * FROM event WHERE event_id='%d'"""%(self.idEvent,)
-        )
-        self.namaEventLabel.setText("Tested")
-        result = self.mycursor.fetchone()
-        print(result[1])
+    #     self.mycursor.execute(
+    #         """SELECT * FROM event WHERE event_id='%d'"""%(self.idEvent,)
+    #     )
+    #     self.namaEventLabel.setText("Tested")
+    #     result = self.mycursor.fetchone()
+    #     print(result[1])
 
-        self.namaEventLabel.setText(str(result[1]))
-        self.deskripsiEventLabel.setText(str(result[2]))
-        self.dateLabel.setText(str(result[3]))
-        self.biayaLabel.setText(str(result[4]))
+    #     self.namaEventLabel.setText(str(result[1]))
+    #     self.deskripsiEventLabel.setText(str(result[2]))
+    #     self.dateLabel.setText(str(result[3]))
+    #     self.biayaLabel.setText(str(result[4]))
 
     def daftarButtonClick(self):
-        # warn
+        # cekKeterdaftaran event
+        check = "SELECT * FROM member_event WHERE member_id={} and event_id={}".format(self.member_id, self.idEvent)
+        self.mycursor.execute(check)
+        result = self.mycursor.fetchone()
+        if(result != None):
+            warn = QMessageBox()
+            warn.setWindowTitle("Message")
+            warn.setText("Anda sudah mendaftar event ini")
+            warn.exec_()
+            return;
+        
+        # cek keyakinan
         ques = QMessageBox()
         ques.setWindowTitle("Message")
         ques.setIcon(QMessageBox.Question)
@@ -202,18 +214,18 @@ class Ui_DetailEventWindow(QMainWindow):
                 message.exec_()
             else: # biaya tidak gratis
                 ### MASIH BELUM DIIMPLEMENTASIKAN DB NYA ###
-                # sql = "SELECT penyelenggara_id FROM event where event_id=%{}".format(self.idEvent)
-                # self.mycursor.execute(sql)
-                # id_penyelenggara = self.mycursor.fetchone()
-                # sql = "SELECT * FROM penyelenggara WHERE penyelenggara_id= {}".format(id_penyelenggara)
-                # self.mycursor.execute(sql)
+                sql = "SELECT penyelenggara_id FROM event where event_id={}".format(self.idEvent)
+                self.mycursor.execute(sql)
+                id_penyelenggara = self.mycursor.fetchone()
+                sql = "SELECT * FROM penyelenggara WHERE penyelenggara_id={}".format(int(id_penyelenggara[0]))
+                self.mycursor.execute(sql)
                 penyelenggara = self.mycursor.fetchone()
                 ##########################################
 
                 bayar = QMessageBox()
                 bayar.setWindowTitle("Pembayaran")
                 bayar.setText("Event memerlukan biaya pendaftaran")
-                infodetail = "Nama Penyelenggara \t: {}\nInfo Rekening \t : {}".format("aaa", "bbb")
+                infodetail = "Nama Penyelenggara \t: {}\nInfo Kontak \t : {}".format(penyelenggara[1], penyelenggara[2])
                 bayar.setInformativeText("Silahkan membayar biaya pendaftaran dan mengonfirmasikannya ke penyelenggara event pada detail dibawah")
                 bayar.setDetailedText(infodetail)
                 bayar.exec_()
@@ -234,6 +246,32 @@ class Ui_DetailEventWindow(QMainWindow):
     def back(self):
         self.widget.removeWidget(self)
         # self.widget.setCurrentIndex(self.widget.currentIndex()-1)
+
+###############################################################################################
+
+## MODULES ##
+
+def showDetail(event_id, cur):
+    cur.execute(
+        """SELECT * FROM event WHERE event_id='%d'"""%(event_id)
+    )
+
+    result = cur.fetchone()
+    return result
+
+def cekKeterdaftaran(event_id, member_id, cur):
+    check = "SELECT * FROM member_event WHERE member_id={} and event_id={}".format(member_id, event_id)
+    cur.execute(check)
+    result = cur.fetchone()
+    if result == None:
+        return False
+    else:
+        return True
+
+
+
+
+
 
 # if __name__ == "__main__":
 #     import sys

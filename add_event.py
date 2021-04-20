@@ -125,7 +125,7 @@ class Ui_AddEvent(QMainWindow):
 
     def checkStringLength(self, caller:QtWidgets.QPlainTextEdit, label:QtWidgets.QLabel, context: str):
         # textLength = caller.toPlainText().__len__()
-        lengthCode = checkStringLength(caller.toPlainText().__len__(), 256)
+        lengthCode = checkStringLength(caller.toPlainText(), 256)
         if lengthCode == 2:
             label.setText(context + " terlalu panjang")
             return False
@@ -221,71 +221,6 @@ def checkDataEvent(nama: str, deskripsi: str, tanggal: QtCore.QDate):
 
 ######################
 ######################
-
-###################
-# PROSEDUR NGETES #
-###################
-
-def test_nama_event_kosong():
-    nama = ""
-    deskripsi = "ini deskripsi"
-    tanggal = QtCore.QDate()
-    tanggal.setDate(2030,1,1)
-    namaStatus, deskripsiStatus, tanggalStatus = checkDataEvent(nama, deskripsi, tanggal)
-    assert namaStatus == 0
-    assert deskripsiStatus == 1
-    assert tanggalStatus == True
-
-def test_nama_event_kebanyakan():
-    nama = "a"*300
-    deskripsi = "ini deskripsi"
-    tanggal = QtCore.QDate()
-    tanggal.setDate(2030,1,1)
-    namaStatus, deskripsiStatus, tanggalStatus = checkDataEvent(nama, deskripsi, tanggal)
-    assert namaStatus == 2
-    assert deskripsiStatus == 1
-    assert tanggalStatus == True
-
-def test_deskripsi_event_kosong():
-    nama = "ini nama"
-    deskripsi = ""
-    tanggal = QtCore.QDate()
-    tanggal.setDate(2030,1,1)
-    namaStatus, deskripsiStatus, tanggalStatus = checkDataEvent(nama, deskripsi, tanggal)
-    assert namaStatus == 1
-    assert deskripsiStatus == 0
-    assert tanggalStatus == True
-
-def test_deskripsi_event_kebanyakan():
-    nama = "ini nama"
-    deskripsi = "a"*300
-    tanggal = QtCore.QDate()
-    tanggal.setDate(2030,1,1)
-    namaStatus, deskripsiStatus, tanggalStatus = checkDataEvent(nama, deskripsi, tanggal)
-    assert namaStatus == 1
-    assert deskripsiStatus == 2
-    assert tanggalStatus == True
-
-def test_tanggal_event_lampau():
-    nama = "ini nama"
-    deskripsi = "ini deskripsi"
-    tanggal = QtCore.QDate()
-    tanggal.setDate(1999,1,1)
-    namaStatus, deskripsiStatus, tanggalStatus = checkDataEvent(nama, deskripsi, tanggal)
-    assert namaStatus == 1
-    assert deskripsiStatus == 1
-    assert tanggalStatus == False
-
-def test_data_event_valid():
-    nama = "ini nama"
-    deskripsi = "ini deskripsi"
-    tanggal = QtCore.QDate()
-    tanggal.setDate(2030,1,1)
-    namaStatus, deskripsiStatus, tanggalStatus = checkDataEvent(nama, deskripsi, tanggal)
-    assert namaStatus == 1
-    assert deskripsiStatus == 1
-    assert tanggalStatus == True
-
 
 if __name__ == "__main__":
     import sys
