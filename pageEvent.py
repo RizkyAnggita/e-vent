@@ -277,14 +277,14 @@ class Ui_EventWindow(QMainWindow):
         self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
 
     def gotoSearch(self, res) : 
-        hasilSearch = Ui_searchWindow(self.widget, res)
+        hasilSearch = Ui_searchWindow(self.widget, res, self.member_id)
         self.widget.addWidget(hasilSearch)
         self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
 
     def search(self) :
         name = self.SearchBar.text()
         mycursor = mydb.cursor()
-        sql = "SELECT namaEvent FROM event"
+        sql = "SELECT namaEvent,event_id FROM event"
         mycursor.execute(sql)
         result = mycursor.fetchall()
         _,res = searchEvent(result, name)
@@ -297,7 +297,7 @@ def searchEvent(arr, test) :
         low = x[0].lower()
         arrTest = low.split()
         if (test.lower() in arrTest) :
-            res.append(x[0])
+            res.append(x)
             found = True
     return found,res
         
