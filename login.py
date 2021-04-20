@@ -97,6 +97,7 @@ class Ui_LoginWindow(QDialog):
         self.signup_btn.setText(_translate("Dialog", "Daftar"))
         self.label_5.setText(_translate("Dialog", "Belum punya akun?"))
         self.back_btn.setText(_translate("Dialog", "Back"))
+        self.signup_btn.clicked.connect(self.back)
 
     def loginfunction(self):
         member = False
@@ -131,7 +132,6 @@ class Ui_LoginWindow(QDialog):
                 msg.setText("Login berhasil! ")
                 msg.setInformativeText("Selamat Datang!")
             else:
-
                 msg.setText("Login gagal !")
                 msg.setInformativeText("Silahkan cek kembali email dan password Anda")
                 self.email_txtbox.clear()
@@ -142,11 +142,14 @@ class Ui_LoginWindow(QDialog):
             ui = Ui_EventWindow(self.widget, member_id)
             self.widget.addWidget(ui)
             self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
-        else:
+        
+        elif(penyelenggara):
             ui = Ui_AddEvent(self.widget, penyelenggara_id)
             self.widget.addWidget(ui)
             self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
         
+        else:
+            pass
 
     def back(self):
         self.widget.removeWidget(self)

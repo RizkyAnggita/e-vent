@@ -24,6 +24,7 @@ class Ui_SignupPenyelenggara(QDialog):
         self.conn = conn
         self.submit_signup_btn.clicked.connect(self.signupPenyelenggara)
         self.back_btn.clicked.connect(self.back)
+        self.password_txtbox.setEchoMode(QtWidgets.QLineEdit.Password)
 
     def setupUi(self, Dialog):
         self.test()

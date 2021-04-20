@@ -25,6 +25,7 @@ class Ui_SignupMember(QDialog):
         self.submit_signup_btn.clicked.connect(self.signupMember)
         self.tanggal_lahir.setCalendarPopup(True)
         self.back_btn.clicked.connect(self.back)
+        self.password_txtbox.setEchoMode(QtWidgets.QLineEdit.Password)
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -111,6 +112,13 @@ class Ui_SignupMember(QDialog):
         result = self.cur.fetchone()
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
+
+        if (nama=="" or email=="" or password==""):
+            msg.setText("Masih ada data yang belum diisi !")
+            msg.setInformativeText("Silahkan isi data secara lengkap ")
+            msg.exec_()
+            return 
+
         if (result==None):
             sql = "INSERT INTO member VALUES (NULL, %s, %s, %s, %s)"
             val = (nama, email, tgl_lahir, password)
