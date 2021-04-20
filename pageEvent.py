@@ -280,14 +280,19 @@ class Ui_EventWindow(QMainWindow):
         sql = "SELECT namaEvent FROM event"
         mycursor.execute(sql)
         result = mycursor.fetchall()
-        res = []
-        for x in result :
-            low = x[0].lower()
-            arr = low.split()
-            if (name.lower() in arr) : 
-                print(x[0])
-                res.append(x[0])
+        _,res = searchEvent(result, name)
         self.gotoSearch(res)
+
+def searchEvent(arr, test) : 
+    found = False
+    res = []
+    for x in arr : 
+        low = x[0].lower()
+        arrTest = low.split()
+        if (test.lower() in arrTest) :
+            res.append(x[0])
+            found = True
+    return found,res
         
         
 
