@@ -13,6 +13,7 @@ from PyQt5.uic import loadUi
 from PyQt5 import QtCore, QtGui, QtWidgets
 import mysql.connector
 from showDetailEvent import Ui_DetailEventWindow
+from hasilSearch import Ui_searchWindow
 
 mydb = mysql.connector.connect(
     host = "localhost",
@@ -268,17 +269,27 @@ class Ui_EventWindow(QMainWindow):
         self.widget.addWidget(showDetailEvent)
         self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
 
+    def gotoSearch(self, res) : 
+        hasilSearch = Ui_searchWindow(self.widget, res)
+        self.widget.addWidget(hasilSearch)
+        self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
+
     def search(self) :
         name = self.SearchBar.text()
         mycursor = mydb.cursor()
         sql = "SELECT namaEvent FROM event"
         mycursor.execute(sql)
         result = mycursor.fetchall()
+        res = []
         for x in result :
             low = x[0].lower()
             arr = low.split()
             if (name.lower() in arr) : 
                 print(x[0])
+                res.append(x[0])
+        self.gotoSearch(res)
+        
+        
 
 
 
