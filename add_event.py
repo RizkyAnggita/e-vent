@@ -177,19 +177,31 @@ class Ui_AddEvent(QMainWindow):
 
         x = msg.exec_()
 
+    def showSuccessPopup(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Data Recorded")
+        msg.setText("Data telah berhasil dicatat")
+        msg.setIcon(QMessageBox.NoIcon)
+        msg.setStandardButtons(QMessageBox.Ok)
+
+        x = msg.exec_()
+
     def popupButtonClicked(self, i:QAbstractButton):
         if (i.text() == "&Yes"):
             dataTuple = (
                 self.namaTextEdit.toPlainText(), 
                 self.deskripsiTextEdit.toPlainText(), 
                 self.dateEdit.date().toString("yyyyMMdd"),
-                str(self.spinBox.value())
+                str(self.spinBox.value()),
+                self.penyelenggara_id
             )
 
-            sql = "INSERT INTO event (namaEvent, deskripsi, tanggal, biaya) VALUES (%s, %s, %s, %s)"
+            sql = "INSERT INTO event (namaEvent, deskripsi, tanggal, biaya, penyelenggara_id) VALUES (%s, %s, %s, %s, %s)"
 
             self.mycursor.execute(sql,dataTuple)
             self.mydb.commit()
+
+            self.showSuccessPopup()
 
         elif (i.text() == "&No") :
             self.mycursor.execute("SELECT * FROM event")
