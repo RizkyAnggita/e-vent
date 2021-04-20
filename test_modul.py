@@ -7,7 +7,9 @@ from signup_penyelenggara import signupPenyelenggara
 from pageEvent import searchEvent
 from add_event import checkDataEvent
 
+from PyQt5.QtCore import QDate
 import mysql.connector as database
+
 conn = database.connect(
     user="admin",
     password="admin",
@@ -77,7 +79,7 @@ def test_search():
 def test_nama_event_kosong():
     nama = ""
     deskripsi = "ini deskripsi"
-    tanggal = QtCore.QDate()
+    tanggal = QDate()
     tanggal.setDate(2030,1,1)
     namaStatus, deskripsiStatus, tanggalStatus = checkDataEvent(nama, deskripsi, tanggal)
     assert namaStatus == 0
@@ -87,7 +89,7 @@ def test_nama_event_kosong():
 def test_nama_event_kebanyakan():
     nama = "a"*300
     deskripsi = "ini deskripsi"
-    tanggal = QtCore.QDate()
+    tanggal = QDate()
     tanggal.setDate(2030,1,1)
     namaStatus, deskripsiStatus, tanggalStatus = checkDataEvent(nama, deskripsi, tanggal)
     assert namaStatus == 2
@@ -97,7 +99,7 @@ def test_nama_event_kebanyakan():
 def test_deskripsi_event_kosong():
     nama = "ini nama"
     deskripsi = ""
-    tanggal = QtCore.QDate()
+    tanggal = QDate()
     tanggal.setDate(2030,1,1)
     namaStatus, deskripsiStatus, tanggalStatus = checkDataEvent(nama, deskripsi, tanggal)
     assert namaStatus == 1
@@ -107,7 +109,7 @@ def test_deskripsi_event_kosong():
 def test_deskripsi_event_kebanyakan():
     nama = "ini nama"
     deskripsi = "a"*300
-    tanggal = QtCore.QDate()
+    tanggal = QDate()
     tanggal.setDate(2030,1,1)
     namaStatus, deskripsiStatus, tanggalStatus = checkDataEvent(nama, deskripsi, tanggal)
     assert namaStatus == 1
@@ -117,7 +119,7 @@ def test_deskripsi_event_kebanyakan():
 def test_tanggal_event_lampau():
     nama = "ini nama"
     deskripsi = "ini deskripsi"
-    tanggal = QtCore.QDate()
+    tanggal = QDate()
     tanggal.setDate(1999,1,1)
     namaStatus, deskripsiStatus, tanggalStatus = checkDataEvent(nama, deskripsi, tanggal)
     assert namaStatus == 1
@@ -127,7 +129,7 @@ def test_tanggal_event_lampau():
 def test_data_event_valid():
     nama = "ini nama"
     deskripsi = "ini deskripsi"
-    tanggal = QtCore.QDate()
+    tanggal = QDate()
     tanggal.setDate(2030,1,1)
     namaStatus, deskripsiStatus, tanggalStatus = checkDataEvent(nama, deskripsi, tanggal)
     assert namaStatus == 1
