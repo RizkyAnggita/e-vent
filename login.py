@@ -100,61 +100,68 @@ class Ui_LoginWindow(QDialog):
         self.signup_btn.clicked.connect(self.back)
 
     def loginfunction(self):
-        member = False
-        penyelenggara = False
-        member_id = 0
-        penyelenggara_id = 0
         email = self.email_txtbox.text()
         password = self.password_txtbox.text()
-        self.cur.execute(
-            """SELECT email, password, member_id FROM member WHERE email='%s' AND password='%s'"""%(email, password,)
-        )
-        result = self.cur.fetchone()
-
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
-        if(result!=None):
-            member = True
-            penyelenggara = False
-            member_id = result[2]
+
+        member, penyelenggara, member_id, penyelenggara_id = loginFunction(email, password, self.cur)
+        
+        if (member):
             msg.setText("Login berhasil! ")
             msg.setInformativeText("Selamat Datang!")
-            # GO TO Page Event and set current_logged_in
-        else:
-            self.cur.execute(
-                """SELECT email, password, penyelenggara_id FROM penyelenggara WHERE email='%s' AND password='%s'"""%(email, password,)
-            )
-            resultPenyelenggara = self.cur.fetchone()
-            if (resultPenyelenggara != None):
-                penyelenggara = True
-                member = False
-                penyelenggara_id = resultPenyelenggara[2]
-                msg.setText("Login berhasil! ")
-                msg.setInformativeText("Selamat Datang!")
-            else:
-                msg.setText("Login gagal !")
-                msg.setInformativeText("Silahkan cek kembali email dan password Anda")
-                self.email_txtbox.clear()
-                self.password_txtbox.clear()
-        msg.exec_()
-        # conn.close()
-        if (member):
+            msg.exec_()
             ui = Ui_EventWindow(self.widget, member_id)
             self.widget.addWidget(ui)
             self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
         
         elif(penyelenggara):
+            msg.setText("Login berhasil! ")
+            msg.setInformativeText("Selamat Datang!")
+            msg.exec_()
             ui = Ui_AddEvent(self.widget, penyelenggara_id)
             self.widget.addWidget(ui)
             self.widget.setCurrentIndex(self.widget.currentIndex() + 1)
         
         else:
-            pass
+            msg.setText("Login gagal !")
+            msg.setInformativeText("Silahkan cek kembali email dan password Anda")
+            self.email_txtbox.clear()
+            self.password_txtbox.clear()
 
     def back(self):
         self.widget.removeWidget(self)
         self.widget.setCurrentIndex(self.widget.currentIndex()-1)
+    
+def loginFunction(email, password, cur):
+    member = False
+    penyelenggara = False
+    member_id = -1
+    penyelenggara_id = -1
+    msg_txt = ""
+    cur.execute(
+        """SELECT email, password, member_id FROM member WHERE email='%s' AND password='%s'"""%(email, password,)
+    )
+    result = cur.fetchone()
 
+    if(result!=None):
+        member = True
+        penyelenggara = False
+        member_id = result[2]
+    else:
+        self.cur.execute(
+            """SELECT email, password, penyelenggara_id FROM penyelenggara WHERE email='%s' AND password='%s'"""%(email, password,)
+        )
+        resultPenyelenggara = cur.fetchone()
+        if (resultPenyelenggara != None):
+            penyelenggara = True
+            member = False
+            penyelenggara_id = resultPenyelenggara[2]
+
+        else:
+            pass
+        
+    return member, penyelenggara, member_id, penyelenggara_id
 
 # if __name__ == "__main__":
 #     import sys
