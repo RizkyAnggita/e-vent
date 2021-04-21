@@ -154,4 +154,10 @@ def test_cekKeterdaftaran():
     event_id = 2
     member_id = 2
     result = cekKeterdaftaran(event_id, member_id, cur) ## Terganung databasenya, mungkin beda
-    assert result != None
+    assert result == True
+
+def test_cekKeterdaftaran_belum_terdaftar():
+    event_id = -1
+    member_id = 2
+    result = cekKeterdaftaran(event_id, member_id, cur) ## Terganung databasenya, mungkin beda
+    assert result == False
