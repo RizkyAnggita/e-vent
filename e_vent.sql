@@ -77,6 +77,7 @@ CREATE TABLE `member` (
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
 INSERT INTO `member` (`member_id`, `nama`, `email`, `tgl_lahir`, `password`) VALUES (1,'A','a@mail.com','2000-07-12','a'),(2,'test','test','1970-07-23','test');
+INSERT INTO `member` (`member_id`, `nama`, `email`, `tgl_lahir`, `password`) VALUES (NULL,'Rizky A','13519132@std.stei.itb.ac.id','1998-02-02','admin'),(NULL,'Rehagana S.','13519117@std.stei.itb.ac.id','1999-03-03','admin2'),(NULL,'Test dari App','test@test.com','2001-11-21','test'),(NULL,'Jonathan','jonathan@yahoo.co.id','2000-07-10','jonathan'),(NULL,'Joni','joni@joni.id','1970-07-14','joni'),(NULL,'Test5','test5@test.com','2001-11-29','test5'),(NULL,'Rizky','rizky@rizky.com','2001-11-29','rizky');
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,6 +133,7 @@ CREATE TABLE `penyelenggara` (
 LOCK TABLES `penyelenggara` WRITE;
 /*!40000 ALTER TABLE `penyelenggara` DISABLE KEYS */;
 INSERT INTO `penyelenggara` (`penyelenggara_id`, `nama`, `email`, `no_telp`, `password`, `deskripsi`) VALUES (1,'test','test','0000','test','test');
+INSERT INTO `penyelenggara` (`penyelenggara_id`, `nama`, `email`, `no_telp`, `password`, `deskripsi`) VALUES (4,'Test1','test1@yahoo.com','082233445566','test1','Ini Deskripsi Penyelenggara'),(5,'joni','joni@joni.id','082211223344','joni','joni'),(6,'test5','test5@test.com','080882823232','test5','test5');
 /*!40000 ALTER TABLE `penyelenggara` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
