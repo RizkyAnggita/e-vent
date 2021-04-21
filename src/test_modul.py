@@ -24,11 +24,12 @@ def test_login_member():
     #  Login member benar
     email = "13519132@std.stei.itb.ac.id"
     password = "admin"
-    member, penyelenggara, member_id, penyelenggara_id = loginFunction(email, password, cur)
+    member, penyelenggara, member_id, penyelenggara_id, data_lengkap = loginFunction(email, password, cur)
     assert member == True
     assert penyelenggara == False
     # assert member_id == something beda" tiap database
     assert penyelenggara_id == -1 #karena yang login member, maka penyelenggara_id default = -1
+    assert data_lengkap == True
 
     # Login salah
 
@@ -37,21 +38,23 @@ def test_login_penyelenggara():
     # Login penyelenggara benar
     email = "test1@yahoo.com"
     password = "test1"
-    member, penyelenggara, member_id, penyelenggara_id = loginFunction(email, password, cur)
+    member, penyelenggara, member_id, penyelenggara_id, data_lengkap = loginFunction(email, password, cur)
     assert member == False
     assert penyelenggara == True
     assert member_id == -1
+    assert data_lengkap == True
     # assert penyelenggara_id == something beda" tiap database
 
 def test_login_gagal():
     # Login salah (tidak terdaftar)
     email = "notexist@yahoo.com"
     password = "notexist"
-    member, penyelenggara, member_id, penyelenggara_id = loginFunction(email, password, cur)
+    member, penyelenggara, member_id, penyelenggara_id, data_lengkap = loginFunction(email, password, cur)
     assert member == False
     assert penyelenggara == False
     assert member_id == -1
     assert penyelenggara_id == -1
+    assert data_lengkap == True
 
 def test_signupMember():
     data_lengkap, sukses = signupMember("Rizky", "rizky@rizky.com", "2001-11-29", "rizky", cur, conn)
@@ -140,24 +143,24 @@ def test_data_event_valid():
 
 def test_show_detail():
     event_id = 1
-    sukses, result = showDetail(event_id, cur) ## Terganung databasenya, mungkin beda
+    sukses, result = showDetail(event_id, cur)
     assert result[0]== event_id
     assert sukses == True
 
 def test_show_detail_notfound():
     event_id = -1
-    sukses, result = showDetail(event_id,cur)   ## Terganung databasenya, mungkin beda
+    sukses, result = showDetail(event_id,cur)
     assert result == None
     assert sukses == False
 
 def test_cekKeterdaftaran():
-    event_id = 2
+    event_id = 1
     member_id = 2
-    result = cekKeterdaftaran(event_id, member_id, cur) ## Terganung databasenya, mungkin beda
+    result = cekKeterdaftaran(event_id, member_id, cur)
     assert result == True
 
 def test_cekKeterdaftaran_belum_terdaftar():
     event_id = -1
     member_id = 2
-    result = cekKeterdaftaran(event_id, member_id, cur) ## Terganung databasenya, mungkin beda
+    result = cekKeterdaftaran(event_id, member_id, cur)
     assert result == False
