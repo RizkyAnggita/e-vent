@@ -1,8 +1,8 @@
--- MariaDB dump 10.18  Distrib 10.5.8-MariaDB, for Win64 (AMD64)
+-- MariaDB dump 10.19  Distrib 10.5.9-MariaDB, for osx10.14 (x86_64)
 --
 -- Host: localhost    Database: e_vent
 -- ------------------------------------------------------
--- Server version	10.5.8-MariaDB
+-- Server version	10.5.9-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -19,7 +19,7 @@
 -- Current Database: `e_vent`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `e_vent` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `e_vent` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
 USE `e_vent`;
 
@@ -40,7 +40,7 @@ CREATE TABLE `event` (
   PRIMARY KEY (`event_id`),
   KEY `fk_penyelenggara_id` (`penyelenggara_id`),
   CONSTRAINT `fk_penyelenggara_id` FOREIGN KEY (`penyelenggara_id`) REFERENCES `penyelenggara` (`penyelenggara_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +49,7 @@ CREATE TABLE `event` (
 
 LOCK TABLES `event` WRITE;
 /*!40000 ALTER TABLE `event` DISABLE KEYS */;
-INSERT INTO `event` (`event_id`, `namaEvent`, `deskripsi`, `tanggal`, `biaya`, `penyelenggara_id`) VALUES (1,'a','test event','2021-07-15',0,1),(2,'astaga','astaga','2021-06-01',0,1),(3,'Test1','Test1','2021-03-19',50000,1),(4,'Test1','Test1','2021-03-19',50000,1);
+INSERT INTO `event` (`event_id`, `namaEvent`, `deskripsi`, `tanggal`, `biaya`, `penyelenggara_id`) VALUES (1,'a','test event','2021-07-15',0,1),(2,'astaga','astaga','2021-06-01',0,1),(3,'Test1','Test1','2021-03-19',50000,1),(4,'Test1','Test1','2021-03-19',50000,1),(5,'Motivasi 4.0 with Mario Teduh','Mari bersihkan pikiran dan perkuat iman bersama motivator ulung Mario Teduh. Dilaksanakan di Bandung Convention Center.','2021-05-08',25000,7),(6,'Ngabuburit bersama Menparekraf','Mari berdiskusi bersama Menteri Pariwisata dan Ekonomi Kreatif, Sandiaga Uno.','2021-05-06',10000,7),(7,'Bincang Pagi bersama Walikota Bandung','Bersama Walikota Bandung Aa Imam Nurul Hukmi, berbincang mengenai permasalahan terkini yang ada di kota Bandung.','2021-04-28',5000,7);
 /*!40000 ALTER TABLE `event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +67,7 @@ CREATE TABLE `member` (
   `tgl_lahir` date NOT NULL,
   `password` varchar(16) NOT NULL,
   PRIMARY KEY (`member_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,8 +76,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` (`member_id`, `nama`, `email`, `tgl_lahir`, `password`) VALUES (1,'A','a@mail.com','2000-07-12','a'),(2,'test','test','1970-07-23','test');
-INSERT INTO `member` (`member_id`, `nama`, `email`, `tgl_lahir`, `password`) VALUES (NULL,'Rizky A','13519132@std.stei.itb.ac.id','1998-02-02','admin'),(NULL,'Rehagana S.','13519117@std.stei.itb.ac.id','1999-03-03','admin2'),(NULL,'Test dari App','test@test.com','2001-11-21','test'),(NULL,'Jonathan','jonathan@yahoo.co.id','2000-07-10','jonathan'),(NULL,'Joni','joni@joni.id','1970-07-14','joni'),(NULL,'Test5','test5@test.com','2001-11-29','test5'),(NULL,'Rizky','rizky@rizky.com','2001-11-29','rizky');
+INSERT INTO `member` (`member_id`, `nama`, `email`, `tgl_lahir`, `password`) VALUES (1,'A','a@mail.com','2000-07-12','a'),(2,'test','test','1970-07-23','test'),(3,'Rizky A','13519132@std.stei.itb.ac.id','1998-02-02','admin'),(4,'Rehagana S.','13519117@std.stei.itb.ac.id','1999-03-03','admin2'),(5,'Test dari App','test@test.com','2001-11-21','test'),(6,'Jonathan','jonathan@yahoo.co.id','2000-07-10','jonathan'),(7,'Joni','joni@joni.id','1970-07-14','joni'),(8,'Test5','test5@test.com','2001-11-29','test5'),(9,'Rizky','rizky@rizky.com','2001-11-29','rizky');
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,7 +103,7 @@ CREATE TABLE `member_event` (
 
 LOCK TABLES `member_event` WRITE;
 /*!40000 ALTER TABLE `member_event` DISABLE KEYS */;
-INSERT INTO `member_event` (`member_id`, `event_id`) VALUES (2,1),(2,3);
+INSERT INTO `member_event` (`member_id`, `event_id`) VALUES (2,1),(2,3),(2,5);
 /*!40000 ALTER TABLE `member_event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,7 +122,7 @@ CREATE TABLE `penyelenggara` (
   `password` varchar(16) NOT NULL,
   `deskripsi` varchar(255) NOT NULL,
   PRIMARY KEY (`penyelenggara_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -132,8 +131,7 @@ CREATE TABLE `penyelenggara` (
 
 LOCK TABLES `penyelenggara` WRITE;
 /*!40000 ALTER TABLE `penyelenggara` DISABLE KEYS */;
-INSERT INTO `penyelenggara` (`penyelenggara_id`, `nama`, `email`, `no_telp`, `password`, `deskripsi`) VALUES (1,'test','test','0000','test','test');
-INSERT INTO `penyelenggara` (`penyelenggara_id`, `nama`, `email`, `no_telp`, `password`, `deskripsi`) VALUES (4,'Test1','test1@yahoo.com','082233445566','test1','Ini Deskripsi Penyelenggara'),(5,'joni','joni@joni.id','082211223344','joni','joni'),(6,'test5','test5@test.com','080882823232','test5','test5');
+INSERT INTO `penyelenggara` (`penyelenggara_id`, `nama`, `email`, `no_telp`, `password`, `deskripsi`) VALUES (1,'test','test','0000','test','test'),(4,'Test1','test1@yahoo.com','082233445566','test1','Ini Deskripsi Penyelenggara'),(5,'joni','joni@joni.id','082211223344','joni','joni'),(6,'test5','test5@test.com','080882823232','test5','test5'),(7,'Bandung Berjaya','bandungjaya@gmail.com','0228225454','bandungjaya','Perusahaan Event Organizer terkemuka yang berbasis di Kota Bandung');
 /*!40000 ALTER TABLE `penyelenggara` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -146,4 +144,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-20 20:49:13
+-- Dump completed on 2021-04-21 15:27:37

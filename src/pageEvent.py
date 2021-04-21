@@ -241,7 +241,7 @@ class Ui_EventWindow(QMainWindow):
     def retranslateNewEvent(self,EventWindow) :
         # os.chdir(self.cwd)
         mycursor = mydb.cursor()
-        sql = 'SELECT namaEvent, event_id FROM event ORDER BY event_id DESC;'
+        sql = 'SELECT namaEvent, event_id FROM event ORDER BY event_id ASC;'
         mycursor.execute(sql)
         result = mycursor.fetchall()
         _translate = QtCore.QCoreApplication.translate
