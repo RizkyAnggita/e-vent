@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font-size: 50pt;</string>
+     <string notr="true">font-size: 34pt;</string>
     </property>
     <property name="text">
      <string>E-Vent</string>
@@ -40,10 +40,13 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font-size: 30pt;</string>
+     <string notr="true">font-size: 17pt;</string>
     </property>
     <property name="text">
      <string>Aplikasi Booking Event Online berbasis Desktop</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -56,7 +59,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font-size:25pt;</string>
+     <string notr="true">font-size:15pt;</string>
     </property>
     <property name="text">
      <string>Sudah punya Akun?</string>
@@ -65,8 +68,8 @@
    <widget class="QPushButton" name="login_btn">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>310</y>
+      <x>70</x>
+      <y>270</y>
       <width>131</width>
       <height>41</height>
      </rect>
@@ -88,7 +91,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font-size:25pt;</string>
+     <string notr="true">font-size:17pt;</string>
     </property>
     <property name="text">
      <string>Daftar</string>
@@ -98,13 +101,13 @@
     <property name="geometry">
      <rect>
       <x>470</x>
-      <y>310</y>
+      <y>290</y>
       <width>191</width>
       <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font-size:16pt;</string>
+     <string notr="true">font-size:14pt;</string>
     </property>
     <property name="text">
      <string>Signup Member</string>
@@ -114,13 +117,13 @@
     <property name="geometry">
      <rect>
       <x>470</x>
-      <y>410</y>
+      <y>400</y>
       <width>191</width>
       <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font-size:16pt;</string>
+     <string notr="true">font-size:10pt;</string>
     </property>
     <property name="text">
      <string>Signup Penyelenggara</string>
@@ -129,8 +132,8 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>290</y>
+      <x>470</x>
+      <y>270</y>
       <width>161</width>
       <height>16</height>
      </rect>
@@ -142,8 +145,8 @@
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>390</y>
+      <x>470</x>
+      <y>380</y>
       <width>181</width>
       <height>16</height>
      </rect>
@@ -159,7 +162,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

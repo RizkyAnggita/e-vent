@@ -26,7 +26,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font-size: 28pt;</string>
+    <string notr="true">font-size: 22pt;</string>
    </property>
    <property name="text">
     <string>Login</string>
@@ -42,7 +42,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font-size: 20pt;</string>
+    <string notr="true">font-size: 15pt;</string>
    </property>
    <property name="text">
     <string>Email         : </string>
@@ -75,7 +75,7 @@ font-size: 20pt;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font-size: 20pt;</string>
+    <string notr="true">font-size: 15pt;</string>
    </property>
    <property name="text">
     <string>Password : </string>
@@ -121,7 +121,7 @@ font-size:20pt;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font-size: 32pt;</string>
+    <string notr="true">font-size: 28pt;</string>
    </property>
    <property name="text">
     <string>E-Vent</string>

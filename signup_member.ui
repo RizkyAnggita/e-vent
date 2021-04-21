@@ -26,7 +26,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font-size: 28pt;</string>
+    <string notr="true">font-size: 17pt;</string>
    </property>
    <property name="text">
     <string>Sign Up Member</string>
@@ -42,7 +42,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font-size: 20pt;</string>
+    <string notr="true">font-size: 15pt;</string>
    </property>
    <property name="text">
     <string>Nama              :</string>
@@ -75,7 +75,7 @@ font-size: 20pt;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font-size: 20pt;</string>
+    <string notr="true">font-size: 15pt;</string>
    </property>
    <property name="text">
     <string>Email               :</string>
@@ -116,12 +116,12 @@ font-size:20pt;</string>
     <rect>
      <x>200</x>
      <y>0</y>
-     <width>101</width>
+     <width>151</width>
      <height>61</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font-size: 32pt;</string>
+    <string notr="true">font-size: 28pt;</string>
    </property>
    <property name="text">
     <string>E-Vent</string>
@@ -137,7 +137,7 @@ font-size:20pt;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font-size: 20pt;</string>
+    <string notr="true">font-size: 12pt;</string>
    </property>
    <property name="text">
     <string>Tanggal Lahir:</string>
@@ -153,7 +153,7 @@ font-size:20pt;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font-size: 20pt;</string>
+    <string notr="true">font-size: 15pt;</string>
    </property>
    <property name="text">
     <string>Password       :</string>

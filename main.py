@@ -44,6 +44,7 @@ conn = database.connect(
 
 cur = conn.cursor()
 print("SUKSES")
+QApplication.setStyle('Fusion')
 app = QApplication(sys.argv)
 mainWindow = MainWindow()
 

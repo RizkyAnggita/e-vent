@@ -36,11 +36,11 @@ class Ui_LoginWindow(QDialog):
         Dialog.setStyleSheet("")
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(210, 80, 101, 61))
-        self.label.setStyleSheet("font-size: 28pt;")
+        self.label.setStyleSheet("font-size: 22pt;")
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(Dialog)
         self.label_2.setGeometry(QtCore.QRect(70, 150, 131, 41))
-        self.label_2.setStyleSheet("font-size: 20pt;")
+        self.label_2.setStyleSheet("font-size: 15pt;")
         self.label_2.setObjectName("label_2")
         self.email_txtbox = QtWidgets.QLineEdit(Dialog)
         self.email_txtbox.setGeometry(QtCore.QRect(190, 150, 191, 31))
@@ -50,7 +50,7 @@ class Ui_LoginWindow(QDialog):
         self.email_txtbox.setObjectName("email_txtbox")
         self.label_3 = QtWidgets.QLabel(Dialog)
         self.label_3.setGeometry(QtCore.QRect(70, 230, 111, 31))
-        self.label_3.setStyleSheet("font-size: 20pt;")
+        self.label_3.setStyleSheet("font-size: 15pt;")
         self.label_3.setObjectName("label_3")
         self.password_txtbox = QtWidgets.QLineEdit(Dialog)
         self.password_txtbox.setGeometry(QtCore.QRect(190, 230, 191, 31))
@@ -63,7 +63,7 @@ class Ui_LoginWindow(QDialog):
         self.submit_login_btn.setObjectName("submit_login_btn")
         self.label_4 = QtWidgets.QLabel(Dialog)
         self.label_4.setGeometry(QtCore.QRect(200, 0, 101, 61))
-        self.label_4.setStyleSheet("font-size: 32pt;")
+        self.label_4.setStyleSheet("font-size: 28pt;")
         self.label_4.setObjectName("label_4")
         self.signup_btn = QtWidgets.QPushButton(Dialog)
         self.signup_btn.setGeometry(QtCore.QRect(300, 270, 91, 31))
@@ -97,8 +97,14 @@ class Ui_LoginWindow(QDialog):
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
 
-        member, penyelenggara, member_id, penyelenggara_id = loginFunction(email, password, self.cur)
+        member, penyelenggara, member_id, penyelenggara_id, data_lengkap = loginFunction(email, password, self.cur)
         
+        if not data_lengkap:
+            msg.setText("Masih ada data yang belum diisi !")
+            msg.setInformativeText("Silahkan isi data secara lengkap ")
+            msg.exec_()
+            return
+
         if (member):
             msg.setText("Login berhasil! ")
             msg.setInformativeText("Selamat Datang!")
@@ -120,6 +126,8 @@ class Ui_LoginWindow(QDialog):
             msg.setInformativeText("Silahkan cek kembali email dan password Anda")
             self.email_txtbox.clear()
             self.password_txtbox.clear()
+            msg.exec_()
+
 
     def back(self):
         self.widget.removeWidget(self)
@@ -130,7 +138,12 @@ def loginFunction(email, password, cur):
     penyelenggara = False
     member_id = -1
     penyelenggara_id = -1
-    msg_txt = ""
+    data_lengkap = False
+    
+    if (email=="" or password==""):
+        return member, penyelenggara, member_id, penyelenggara_id, data_lengkap
+        
+    data_lengkap = True
     cur.execute(
         """SELECT email, password, member_id FROM member WHERE email='%s' AND password='%s'"""%(email, password,)
     )
@@ -153,7 +166,7 @@ def loginFunction(email, password, cur):
         else:
             pass
 
-    return member, penyelenggara, member_id, penyelenggara_id
+    return member, penyelenggara, member_id, penyelenggara_id, data_lengkap
 
 # if __name__ == "__main__":
 #     import sys
