@@ -1,6 +1,7 @@
 # E-Vent
-> Aplikasi Booking Online Event berbasis Desktop
-> Menggunakan Python3, Pyqt5, mariadb
+> Aplikasi Booking Online Event berbasis Desktop <br>
+> Menggunakan Python3, Pyqt5, mariadb <br>
+> Dibuat oleh IF2250-2021-K03-G13
 
 ## General Info
 Aplikasi berbasis desktop untuk melakukan pemesanan tiket event-event yang diadakan secara online bagi member. Pihak penyelenggara event dapat menawarkan event yang diselenggarakannya melalui aplikasi ini, meliputi detail event seperti deskripsi event, tanggal pelaksanaan, biaya pendaftaran, kontak, dll. Calon pengunjung dapat melihat event-event apa saja yang ditawarkan oleh penyelenggara, termasuk melihat detail acara, informasi penyelenggara, biaya pendaftaran, kontak penyelenggara, dll.
@@ -51,17 +52,19 @@ $ pytest -v
 
 ## Daftar Modul yang diimplementasi
 1. Modul Utama (Tampilan Awal)  - 13519132 Rizky Anggita S Siregar <br>
-foto here
+![](doc/main.jpeg)
 2. Modul Login  - 13519132 Rizky Anggita S Siregar <br>
-foto here
+![](doc/login.jpeg)
 3. Modul Signup (Signup Member dan Penyelenggara)   - 13519132 Rizky Anggita S Siregar <br>
-foto here
+![](doc/signup_member.jpeg)
 4. Modul Feed Event dan Search Event    - 13519117 Rehagana Kevin C. Sembiring <br>
-foto here
+![](doc/signup_penyelenggara.jpeg)
+![](doc/search_event.jpeg)
 5. Modul Detail Event dan Registrasi    - 13519127 Giant Andreas Tambunan <br>
-foto here
+![](doc/detail_registrasi_event.jpeg)
 6. Modul Add Event (termasuk Validasi dan Konfirmasi Event) - 13519150 Imam Nurul Hukmi <br>
-foto here
+![](doc/add_event.jpeg)
+
 
 
 ## Daftar Tabel Basis Data
@@ -114,4 +117,7 @@ Tabel member_event
 - 13519117 Rehagana Kevin C. Sembiring
 - 13519127 Giant Andreas Tambunan
 - 13519132 Rizky Anggita S Siregar
-- 13519150 Imam Nurul Hukmi
+- 13519150 Imam Nurul Hukmi <br>
+IF2250 K03 G13 <br>
+Institut Teknologi Bandung<br>
+2021<br>
