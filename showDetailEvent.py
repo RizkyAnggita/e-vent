@@ -255,9 +255,14 @@ def showDetail(event_id, cur):
     cur.execute(
         """SELECT * FROM event WHERE event_id='%d'"""%(event_id)
     )
-
+    # sukses
+    sukses = False
     result = cur.fetchone()
-    return result
+    if(result != None):
+        if(result[0] == event_id and result[1]!= None and result[2]!= None and result[3]!= None and result[4]!= None and result[5]!= None):
+            sukses = True
+    
+    return sukses, result
 
 def cekKeterdaftaran(event_id, member_id, cur):
     check = "SELECT * FROM member_event WHERE member_id={} and event_id={}".format(member_id, event_id)

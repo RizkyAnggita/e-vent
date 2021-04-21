@@ -140,16 +140,18 @@ def test_data_event_valid():
 
 def test_show_detail():
     event_id = 1
-    id, nm, des, tgl, biy, peny = showDetail(event_id, cur) ## Terganung databasenya, mungkin beda
-    assert id== 1
+    sukses, result = showDetail(event_id, cur) ## Terganung databasenya, mungkin beda
+    assert result[0]== event_id
+    assert sukses == True
 
 def test_show_detail_notfound():
     event_id = -1
-    result = showDetail(event_id,cur)   ## Terganung databasenya, mungkin beda
+    sukses, result = showDetail(event_id,cur)   ## Terganung databasenya, mungkin beda
     assert result == None
+    assert sukses == False
 
 def test_cekKeterdaftaran():
     event_id = 2
     member_id = 2
     result = cekKeterdaftaran(event_id, member_id, cur) ## Terganung databasenya, mungkin beda
-    print(result)
+    assert result != None
